@@ -3,6 +3,7 @@ import mongoose, { Document, Model } from "mongoose";
 
 // Defining the structure of a todo item using TypeScript interfaces
 export interface ITodo {
+  _id: string;
   todo: string;
   todoDeadline: Date;
 }
@@ -10,6 +11,7 @@ export interface ITodo {
 // Merging ITodo interface with mongoose's Document interface to create 
 // a new interface that represents a todo document in MongoDB
 export interface ITodoDocument extends ITodo, Document {
+  _id: string;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -9,32 +9,33 @@ export const createTodos = async (formData: FormData) => {
     const todo = formData.get("todo");
     const todoDeadline = formData.get("todoDeadline");//req.body.todoDeadline);
     try {
+        if (typeof todoDeadline === 'string') {
+            const date = new Date(todoDeadline); // Safe to pass since it's a string
+            // Convert date string to ISO date string format (if needed)
+            const todoData = {
+                todo,
+                todoDeadline: date.toISOString(), // Ensure it's a valid date
+            };
 
-        if ( !todoDeadline) {
-            console.log("Please fill out both fields.");
-            return;
+            // Creating a new todo using Todo model
+            const newTodo = await Todo.create(todoData);
+            // Saving the new todo
+            newTodo.save();
+                
+            // Triggering revalidation of the specified path ("/")
+            revalidatePath("/");
+            // Returning the string representation of the new todo
+            return newTodo.toString();
+        } else {
+            return {message: 'DeadLine is invalid date format'};    
         }
-        // Convert date string to ISO date string format (if needed)
-        const todoData = {
-            todo,
-            todoDeadline: new Date(todoDeadline).toISOString(), // Ensure it's a valid date
-        };
-
-        // Creating a new todo using Todo model
-        const newTodo = await Todo.create(todoData);
-        // Saving the new todo
-        newTodo.save();
-        // Triggering revalidation of the specified path ("/")
-        revalidatePath("/");
-        // Returning the string representation of the new todo
-        return newTodo.toString();
     } catch (error) {
         console.log(error);
         return {message: 'error creating todo'};
     }
 };
 
-export const deleteTodo = async (id: FormData) => {
+export const deleteTodo = async (id: FormData): Promise<void> => {
     // Extracting todo ID from formData
     const todoId = id.get("id");
     try {
@@ -42,11 +43,8 @@ export const deleteTodo = async (id: FormData) => {
         await Todo.deleteOne({_id: todoId});
         // Triggering revalidation of the specified path ("/")
         revalidatePath("/");
-        // Returning a success message after deleting the todo
-        return ('todo deleted');
+ 
     } catch (error) {
         console.log(error);
-        // Returning an error message if todo deletion fails
-        return {message: 'error deleting todo'};
     }
 }

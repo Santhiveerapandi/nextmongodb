@@ -12,9 +12,9 @@ export default async function GetTodosUI() {
       return (
         <div>
           {todos.map((todo) => (
-            <div key={todo._id}>
+            <div key={todo._id as string}>
               <h3>{todo.todo as string}</h3>
-              <p>{todo.todoTime as number}</p>
+              <p>{}</p>
               <p>{todo._id.toString()}</p>
               <form action={deleteTodo}>
                 <input
