@@ -1,3 +1,7 @@
+// Load environment variables
+require('dotenv').config();
+// const mongoose = require('mongoose');
+
 // Importing mongoose library along with Connection type from it
 import mongoose, { Connection } from "mongoose";
 
@@ -12,8 +16,14 @@ export async function connectToMongoDB() {
     return cachedConnection;
   }
   try {
+    const mongoUri = process.env.MONGODB_URI;
+
+    // Check if URI is defined
+    if (!mongoUri) {
+      throw new Error('MONGODB_URI is missing in environment variables');
+    }
     // If no cached connection exists, establish a new connection to MongoDB
-    const cnx = await mongoose.connect(process.env.MONGODB_URI!);
+    const cnx = await mongoose.connect(mongoUri);
     // Cache the connection for future use
     cachedConnection = cnx.connection;
     // Log message indicating a new MongoDB connection is established
