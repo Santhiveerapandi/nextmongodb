@@ -1,9 +1,10 @@
 // Load environment variables
-require('dotenv').config();
-// const mongoose = require('mongoose');
-
+import dotenv from 'dotenv';
 // Importing mongoose library along with Connection type from it
 import mongoose, { Connection } from "mongoose";
+
+// require('dotenv').config(); don't use require before import
+dotenv.config();
 
 // Declaring a variable to store the cached database connection
 let cachedConnection: Connection | null = null;
