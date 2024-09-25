@@ -15,10 +15,10 @@ export const createTodos = async (formData: FormData) => {
             return;
         }
         // Convert date string to ISO date string format (if needed)
-    const todoData = {
-      todo,
-      todoDeadline: new Date(todoDeadline).toISOString(), // Ensure it's a valid date
-    };
+        const todoData = {
+            todo,
+            todoDeadline: new Date(todoDeadline).toISOString(), // Ensure it's a valid date
+        };
 
         // Creating a new todo using Todo model
         const newTodo = await Todo.create(todoData);

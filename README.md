@@ -1,3 +1,31 @@
+## Create New NextJs Application
+npx create-next-app@latest 
+
+What is your project named?  nextmongodb
+Would you like to use TypeScript?  Yes
+Would you like to use ESLint?   Yes
+Would you like to use Tailwind CSS?   Yes
+Would you like your code inside a `src/` directory?  No 
+Would you like to use App Router? (recommended)   Yes
+Would you like to use Turbopack for `next dev`?   Yes
+Would you like to customize the import alias (`@/*` by default)?  Yes
+
+### Copy the .env.example file into .env.local
+Update the password in the mongodb connection string
+```
+Example: 
+MONGODB_URI="mongodb+srv://santhiveerapandi:<password>@cluster0.qi2eb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+```
+
+get the password from https://cloud.mongodb.com/v2/66f3b5d5ebf26b4156284a96#/security/database
+```
+Login: San**@gmail.com
+Password: *****
+```
+
+### 
+
+### Document for NextJS
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
